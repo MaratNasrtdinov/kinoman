@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'assets/css/register.css' %}">
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {background-color: darkslateblue};
+    </style>
+   </head>
+<body>
+  <div class="container">
+    {% if form.errors %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                             style="margin-top: 50px;">
+          {{ form.errors }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      {% endif %}
+    <div class="title">Регистрация</div>
+    <div class="content">
+      <form action="{% url 'users:registration' %}" method="post">
+        {% csrf_token %}
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Имя</span>
+            {{ form.first_name }}
+          </div>
+          <div class="input-box">
+            <span class="details">Фамилия</span>
+            {{ form.last_name }}
+          </div>
+          <div class="input-box">
+            <span class="details">Имя пользователя</span>
+            {{ form.username }}
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            {{ form.email }}
+          </div>
+          <div class="input-box">
+            <span class="details">Пароль</span>
+            {{ form.password1 }}
+          </div>
+          <div class="input-box">
+            <span class="details">Подтвердите пароль</span>
+            {{ form.password2 }}
+          </div>
+        </div>
+        <div class="gender-details">
+          <input type="radio" value="man" name="gender" id="dot-1">
+          <input type="radio" value="woman" name="gender" id="dot-2">
+          <span class="gender-title">Пол</span>
+          <div class="category">
+            <label for="dot-1">
+            <span class="dot one"></span>
+            <span class="gender">Мужской</span>
+          </label>
+          <label for="dot-2">
+            <span class="dot two"></span>
+            <span class="gender">Женский</span>
+          </label>
+          </div>
+        </div>
+        <div class="button">
+          <input type="submit" value="Зарегистрироваться">
+        </div>
+          <div>
+              <a href="{% url 'users:login' %}">У меня уже есть аккаунт</a>
+          </div>
+          <div><a href="{% url 'index' %}">На главную</a></div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

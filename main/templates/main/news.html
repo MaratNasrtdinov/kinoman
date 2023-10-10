@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block css %}
+	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+{% endblock %}
+
+{% block menu %}
+	<ul class="menu">
+					<li><a href="{% url 'index' %}">Главная</a></li>
+					<li><a href="{% url 'main:films' %}">Фильмы</a></li>
+					<li><a href="{% url 'main:serials' %}">Сериалы</a></li>
+					<li><a href="{% url 'main:raiting' %}">Топ фильмов и сериалов</a></li>
+				</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="content">
+		<p style="color: #aba9a4;">{{ news.created }}</p>
+        <h2>{{ news.name }}</h2>
+
+			<div class="description_film">
+				<p>{{ news.text }}</p>
+			</div>
+        </div>
+
+
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block css %}
+	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+{% endblock %}
+
+{% block menu %}
+	<ul class="menu">
+					<li><a href="{% url 'index' %}">Главная</a></li>
+					<li><a href="{% url 'main:films' %}">Фильмы</a></li>
+					<li><a href="{% url 'main:serials' %}">Сериалы</a></li>
+					<li class="selected"><a href="{% url 'main:raiting' %}">Топ фильмов и сериалов</a></li>
+				</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="content" style="align: left;">
+				<table style="align: left;">
+					{% for film in films %}
+
+					<tr>
+
+						<th></th>
+						<th></th>
+						<th class="center">Рейтинг</th>
+
+					</tr>
+					<tr>
+
+						<td width="155px" height="240px"><img src="{{ film.image.url }}" style="width: 160px; height: 240px;"></td>
+						<td style="font-size: 1.5em; align: center; width: 250px;">{{ forloop.counter }}. <a href="{% url 'main:show' film.id %}">{{ film.name }}</a></td>
+						<td class="center rating" style="width: 100px; font-size: 1.3em;">{{ film.raiting }}</td>
+
+					</tr>
+
+					{% endfor %}
+				</table>
+
+			</div>
+{% endblock %}

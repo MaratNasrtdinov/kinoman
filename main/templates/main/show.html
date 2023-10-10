@@ -1,0 +1,93 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block css %}
+	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+{% endblock %}
+
+{% block menu %}
+	<ul class="menu">
+					<li><a href="{% url 'index' %}">Главная</a></li>
+					<li><a href="{% url 'main:films' %}">Фильмы</a></li>
+					<li><a href="{% url 'main:serials' %}">Сериалы</a></li>
+					<li><a href="{% url 'main:raiting' %}">Топ фильмов и сериалов</a></li>
+				</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="content">
+
+			<h1>{{ film.name }}</h1>
+
+			<div class="trailer">
+				<iframe width="560" height="315"
+						src="{{ film.video }}"
+						title="YouTube video player" frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						allowfullscreen></iframe>
+			</div>
+
+			<div class="info_film_page">
+
+				<span class="label">Рейтинг:</span><span class="value">{{ film.raiting }}</span><br><br>
+				<span class="label">Жанр:</span><span class="value">{{ film.genre }}</span><br>
+				<span class="label">Год:</span><span class="value">{{ film.year }}</span><br>
+				<span class="label">Режиссер:</span><span class="value">{{ film.director }}</span>
+			</div>
+
+			<hr>
+
+
+
+
+
+			<h2>Описание</h2>
+			<div class="description_film">
+				<p>{{ film.desc }}</p>
+			</div>
+
+
+
+			<h2>Комментарии к {{ film.name }}</h2>
+			<div class="reviews">
+				{% for comment in comments %}
+
+					<div class="review_name">
+						{{ comment.user.username }}
+					</div>
+					<div class="review_text">
+						{{ comment.text }}
+					</div>
+				{% empty %}
+					<p>Комментариев пока нет</p>
+				{% endfor %}
+
+			</div>
+			{% if user.is_authenticated %}
+				<script src="{% static 'assets/js/not_refresh.js' %}"></script>
+				<div class="send">
+
+					<form method="post" action="." id="review" enctype= multipart/form-data autocomplete="off" onsubmit="return submitForm()">
+
+						{{ comment_form.text }}
+						{% csrf_token %}
+
+						<p><input type="submit" value="Отправить"></p>
+
+	<!--					<textarea name="review_text" placeholder="Ваш комментарий"></textarea>-->
+	<!--					<input type="submit" class="btn" value="Отправить">-->
+
+					</form>
+
+				</div>
+			{% else %}
+				<p style="font-size: 25px;"><a href="{% url 'users:login' %}">Войдите</a>
+					или <a href="{% url 'users:registration' %}">Зарегистрируйтесь</a>
+					чтобы оставлять комментарии</p>
+				<hr>
+				<hr>
+			{% endif %}
+
+		</div>
+{% endblock %}
+

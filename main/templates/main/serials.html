@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load cache %}
+
+{% block css %}
+	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+{% endblock %}
+
+{% block menu %}
+	<ul class="menu">
+					<li><a href="{% url 'index' %}">Главная</a></li>
+					<li><a href="{% url 'main:films' %}">Фильмы</a></li>
+					<li class="selected"><a href="{% url 'main:serials' %}">Сериалы</a></li>
+					<li><a href="{% url 'main:raiting' %}">Топ фильмов и сериалов</a></li>
+				</ul>
+{% endblock %}
+
+
+{% block content %}
+	<div class="content">
+						{% cache 30 serials %}
+						{% for serial in serials %}
+						<div class="info_film">
+
+						<a href="{% url 'main:show' serial.id %}"><img src="{{ serial.image.url }}"></a>
+						<h2>{{ serial.name }}</h2>
+						<p>{{ serial.desc }}</p>
+					    <div class="button"><a href="{% url 'main:show' serial.id %}">
+					    Смотреть</a></div>
+
+					</div>
+						{% endfor %}
+					{% endcache %}
+
+
+
+
+				</div>
+{% endblock %}

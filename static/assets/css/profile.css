@@ -1,0 +1,22 @@
+body {
+    padding-top: 56px;
+}
+
+.container{
+    position: relative;
+    left: 14%;
+    top: 50%
+    bottom: 50%;
+}
+
+.navbar{
+    background-color: darkslateblue;
+}
+
+.navbar-brand{
+    font-size: 100%;
+}
+
+.btn-color{
+    color: darkslateblue;
+}

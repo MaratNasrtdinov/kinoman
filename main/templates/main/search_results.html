@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load cache %}
+
+{% block css %}
+	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+{% endblock %}
+
+{% block menu %}
+	<ul class="menu">
+					<li><a href="{% url 'index' %}">Главная</a></li>
+					<li class="selected"><a href="{% url 'main:films' %}">Фильмы</a></li>
+					<li><a href="{% url 'main:serials' %}">Сериалы</a></li>
+					<li><a href="{% url 'main:raiting' %}">Топ фильмов и сериалов</a></li>
+				</ul>
+{% endblock %}
+
+{% block content %}
+
+<div class="content">
+	<h1>Результаты поиска:</h1>
+  {% for film in object_list %}
+						<div class="info_film">
+
+						<img src="{{ film.image.url }}">
+						<h2>{{ film.name }}</h2>
+						<p>{{ film.desc }}</p>
+					    <div class="button"><a href="{% url 'main:show' film.id %}">
+					    Смотреть</a></div>
+
+					</div>
+
+  {% endfor %}
+</div>
+{% endblock %}

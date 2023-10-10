@@ -1,0 +1,63 @@
+{% extends 'main/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+
+{% block css %}
+	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+{% endblock %}
+
+{% block menu %}
+	<ul class="menu">
+					<li class="selected"><a href="{% url 'index' %}">Главная</a></li>
+					<li><a href="{% url 'main:films' %}">Фильмы</a></li>
+					<li><a href="{% url 'main:serials' %}">Сериалы</a></li>
+					<li><a href="{% url 'main:raiting' %}">Топ фильмов и сериалов</a></li>
+				</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="content">
+
+			<h1>Новые фильмы</h1>
+
+			<div class="films_block">
+				{% for film in films %}
+					<a href="{% url 'main:show' film.id %}"><img src="{{ film.image.url }}" class="film"></a>
+<!--					<a href="{% url 'main:show' film.id %}"><img src="{{ film.image.url }}" class="film"></a>-->
+<!--					<a href="{% url 'main:show' film.id %}"><img src="{{ film.image.url }}" class="film"></a>-->
+<!--					<a href="{% url 'main:show' film.id %}"><img src="{{ film.image.url }}" class="film"></a>-->
+				{% endfor %}
+			</div>
+
+			<h1>Новые сериалы</h1>
+
+			<div class="films_block">
+				{% for serial in serials %}
+					<a href="{% url 'main:show' serial.id %}"><img src="{{ serial.image.url }}" class="film"></a>
+<!--					<a href="{% url 'main:show' serial.id %}"><img src="{{ serial.image.url }}" class="film"></a>-->
+<!--					<a href="{% url 'main:show' serial.id %}"><img src="{{ serial.image.url }}" class="film"></a>-->
+<!--					<a href="{% url 'main:show' serial.id %}"><img src="{{ serial.image.url }}" class="film"></a>-->
+				{% endfor %}
+			</div>
+			{% for news in sidebar_news %}
+				<div style="padding-bottom: 20px;" class="posts">
+
+					<hr>
+				   <h2><a href="{% url 'main:news' news.id %}">{{ news.name }}</a></h2>
+				   <div class="posts_content">
+					<p style="white-space: nowrap;
+									  overflow: hidden;
+									  text-overflow: ellipsis;">
+							  {{ news.text }}</p>
+				   </div>
+					<a style="padding-bottom: 10px; font-size: 0.93em;" href="{% url 'main:news' news.id %}" id="chitat">читать</a>
+				</div>
+
+
+			{% endfor %}
+
+
+
+
+		</div>
+{% endblock %}
